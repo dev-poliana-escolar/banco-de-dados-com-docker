@@ -1,0 +1,108 @@
+
+mysql> ALTER TABLE turma ADD fk_tur_disciplina INT;
+
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE turma;
++-------------------+----------+------+-----+---------+----------------+
+| Field             | Type     | Null | Key | Default | Extra          |
++-------------------+----------+------+-----+---------+----------------+
+| id                | int      | NO   | PRI | NULL    | auto_increment |
+| codigo            | smallint | NO   |     | NULL    |                |
+| periodo           | char(20) | NO   |     | NULL    |                |
+| fk_tur_aluno      | int      | YES  | MUL | NULL    |                |
+| fk_tur_disciplina | int      | YES  |     | NULL    |                |
++-------------------+----------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE turma ADD CONSTRAINT fk_tur_disciplina FOREIGN KEY (fk_tur_disciplina) REFERENCES disciplina(id);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE turma;
++-------------------+----------+------+-----+---------+----------------+
+| Field             | Type     | Null | Key | Default | Extra          |
++-------------------+----------+------+-----+---------+----------------+
+| id                | int      | NO   | PRI | NULL    | auto_increment |
+| codigo            | smallint | NO   |     | NULL    |                |
+| periodo           | char(20) | NO   |     | NULL    |                |
+| fk_tur_aluno      | int      | YES  | MUL | NULL    |                |
+| fk_tur_disciplina | int      | YES  | MUL | NULL    |                |
++-------------------+----------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> DESCRIBE aluno;
+
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| id              | int          | NO   | PRI | NULL    | auto_increment |
+| nome            | varchar(100) | NO   |     | NULL    |                |
+| data_nascimento | date         | NO   |     | NULL    |                |
+| matricula       | int          | NO   |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE aluno MODIFY matricula UNIQUE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNIQUE' at line 1
+mysql> ALTER TABLE aluno MODIFY matricula INT NOT NULL UNIQUE;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE aluno;
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| id              | int          | NO   | PRI | NULL    | auto_increment |
+| nome            | varchar(100) | NO   |     | NULL    |                |
+| data_nascimento | date         | NO   |     | NULL    |                |
+| matricula       | int          | NO   | UNI | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> DESCRIBE turma;
++-------------------+----------+------+-----+---------+----------------+
+| Field             | Type     | Null | Key | Default | Extra          |
++-------------------+----------+------+-----+---------+----------------+
+| id                | int      | NO   | PRI | NULL    | auto_increment |
+| codigo            | smallint | NO   |     | NULL    |                |
+| periodo           | char(20) | NO   |     | NULL    |                |
+| fk_tur_aluno      | int      | YES  | MUL | NULL    |                |
+| fk_tur_disciplina | int      | YES  | MUL | NULL    |                |
++-------------------+----------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> ALTER TABLE turma ADD CONSTRAINT tur_periodo CHECK (periodo IN (1,2));
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE turma;
++-------------------+----------+------+-----+---------+----------------+
+| Field             | Type     | Null | Key | Default | Extra          |
++-------------------+----------+------+-----+---------+----------------+
+| id                | int      | NO   | PRI | NULL    | auto_increment |
+| codigo            | smallint | NO   |     | NULL    |                |
+| periodo           | char(20) | NO   |     | NULL    |                |
+| fk_tur_aluno      | int      | YES  | MUL | NULL    |                |
+| fk_tur_disciplina | int      | YES  | MUL | NULL    |                |
++-------------------+----------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> ALTER TABLE turma MODIFY periodo CHAR(1);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE turma;
++-------------------+----------+------+-----+---------+----------------+
+| Field             | Type     | Null | Key | Default | Extra          |
++-------------------+----------+------+-----+---------+----------------+
+| id                | int      | NO   | PRI | NULL    | auto_increment |
+| codigo            | smallint | NO   |     | NULL    |                |
+| periodo           | char(1)  | YES  |     | NULL    |                |
+| fk_tur_aluno      | int      | YES  | MUL | NULL    |                |
+| fk_tur_disciplina | int      | YES  | MUL | NULL    |                |
++-------------------+----------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> quit
