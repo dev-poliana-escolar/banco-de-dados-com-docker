@@ -1,79 +1,65 @@
-
-CREATE DATABASE empresa-treinamento;
+-- Criação do banco
 
 CREATE DATABASE empresa_treinamento;
-SHOW DATABASES
-;
 USE empresa_treinamento;
-SHOW DATABASES;
 
-USE empresa_treinamento
-CREATE TABLE tb_departamento(
-id_departamento INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-nome VACHAR(100) NOT NULL,
+-- Criaçao da tabela departamento
+
+
+CREATE TABLE tb_departamento( 
+id_departamento INT AUTO_INCREMENT PRIMARY KEY, 
+nome VARCHAR(100) NOT NULL, 
 andar INT NOT NULL
 );
-CREATE TABLE tb_departamento( id_departamento INT AUTO_INCREMENT PRIMARY KEY NOT NULL, nome VACHAR(100) NOT NULL, andar INT NOT NULL );
-CREATE TABLE tb_departamento(
-id_departamento INT AUTO_INCREMENT PRIMARY KEY,
-nome VARCHAR(100) NOT NULL,
-andar INT NOT NULL);
-CREATE TABLE tb_departamento( id_departamento INT AUTO_INCREMENT PRIMARY KEY, nome VARCHAR(100) NOT NULL, andar INT NOT NULL);
-SHOW TABLE
-;
 
-;
-DESCRIBE tb_departamento;
-CREATE TABLE tb_funcionario(
-id_funcionario INT AUTO_INCREMENT PRIMARY KEY,
-nome VARCHAR(100) NOT NULL,
-cpf CHAR(11) UNIQUE,
-salario DECIMAL(10,2),
-id_departamento_fk INT NOT NULL,
-FOREIGN KEY (id_departamento_fk) REFERENCES tb_departamento(id_departamento)
+
+-- Criaçao da tabela de funcionario
+
+CREATE TABLE tb_funcionario( 
+id_funcionario INT AUTO_INCREMENT PRIMARY KEY, 
+nome VARCHAR(100) NOT NULL, 
+cpf CHAR(11) UNIQUE, salario DECIMAL(10,2), 
+id_departamento_fk INT NOT NULL, 
+FOREIGN KEY (id_departamento_fk) REFERENCES tb_departamento(id_departamento) 
 );
-CREATE TABLE tb_funcionario( id_funcionario INT AUTO_INCREMENT PRIMARY KEY, nome VARCHAR(100) NOT NULL, cpf CHAR(11) UNIQUE, salario DECIMAL(10,2), id_departamento_fk INT NOT NULL, FOREIGN KEY (id_departamento_fk) REFERENCES tb_departamento(id_departamento) );
-DESCRIBE tb_departamento;
-DESCRIBE tb_funcionario
-;
-CREATE TABLE tb_projeto(
-id_projeto INT AUTO_INCREMENT,
-nome_projeto VARCHAR(100) NOT NULL,
-id_departamento_fk INT NOT NULL,
-PRIMARY KEY (id_projeto, id_departamento_fk),
-FOREIGN KEY (id_departamento_fk) REFERENCES tb_departamento(id_departamento)
+
+-- Criaçao da tabela de projeto
+
+CREATE TABLE tb_projeto( 
+id_projeto INT AUTO_INCREMENT, 
+nome_projeto VARCHAR(100) NOT NULL, 
+id_departamento_fk INT NOT NULL, 
+PRIMARY KEY (id_projeto, id_departamento_fk), FOREIGN KEY (id_departamento_fk) REFERENCES tb_departamento(id_departamento) 
 );
-CREATE TABLE tb_projeto( id_projeto INT AUTO_INCREMENT, nome_projeto VARCHAR(100) NOT NULL, id_departamento_fk INT NOT NULL, PRIMARY KEY (id_projeto, id_departamento_fk), FOREIGN KEY (id_departamento_fk) REFERENCES tb_departamento(id_departamento) );
-DESCRIBE tb_projeto
-;
-CREATE TABLE tb_funcionario_projeto(
-id_funcionario_fk INT NOT NULL,
-id_projeto_fk INT NOT NULL,
-id_departamento INT NOT NULL,
+
+-- Criaçao da tabela associativa
+
+
+CREATE TABLE tb_funcionario_projeto( 
+id_funcionario_fk INT NOT NULL, 
+id_projeto_fk INT NOT NULL, 
+id_departamento INT NOT NULL, 
 PRIMARY KEY (id_funcionario_fk, id_projeto_fk, id_departamento),
 FOREIGN KEY (id_funcionario_fk) REFERENCES tb_funcionario(id_funcionario),
-FOREIGN KEY (id_projeto_fk, id_departamento) REFERENCES tb_projeto(id_projeto, id_departamento_fk)
+FOREIGN KEY (id_projeto_fk, id_departamento) REFERENCES tb_projeto(id_projeto, id_departamento_fk) 
 );
-CREATE TABLE tb_funcionario_projeto( id_funcionario_fk INT NOT NULL, id_projeto_fk INT NOT NULL, id_departamento INT NOT NULL, PRIMARY KEY (id_funcionario_fk, id_projeto_fk, id_departamento), FOREIGN KEY (id_funcionario_fk) REFERENCES tb_funcionario(id_funcionario), FOREIGN KEY (id_projeto_fk, id_departamento) REFERENCES tb_projeto(id_projeto, id_departamento_fk) );
+
+-- Adiciona campo de email
 ALTER TABLE tb_funcionario ADD email VARCHAR(120) UNIQUE NOT NULL
-;
-DESCRIBE tb_funcionario;
+
+
+-- Renomeia campo andar
+
 ALTER TABLE tb_departamento RENAME COLUMN andar TO numero_andar
-;
-DESCRIBE tb_departamento;
+
+-- Adiciona a tabela de projeto, campo de data_inicio
 ALTER TABLE tb_projeto ADD data_inicio DATE;
-DESCRIBE tb_projeto;
-?
-DROP TABLE tb_projeto
-;
-ALTER TABLE tb_funcionario_projeto DROP tb_funcionario_projeto_ibfk_2
-;
-DESCRIBE tb_funcionario_projeto
-;
-ALTER TABLE tb_funcionario_projeto DROP id_projeto_fk 
-;
+
+-- Remove fks
+ALTER TABLE tb_funcionario_projeto DROP tb_funcionario_projeto_ibfk_2;
+ALTER TABLE tb_funcionario_projeto DROP id_projeto_fk ;
 ALTER TABLE tb_funcionario_projeto DROP FOREIGN KEY tb_funcionario_projeto_ibfk_2
-;
+
+-- deleta tabela projeto
 DROP TABLE tb_projeto;
-SHOW TABLES
-;
+
