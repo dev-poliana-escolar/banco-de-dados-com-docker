@@ -1,0 +1,107 @@
+mysql> SELECT * FROM TbBanda;
++---------+----------------------+---------+
+| CoBanda | NoBanda              | VaCache |
++---------+----------------------+---------+
+|       1 | Jota Quest           |  130000 |
+|       2 | Skank                |  100000 |
+|       3 | Paralamas do Sucesso |   70000 |
+|       4 | Capital Inicial      |  150000 |
+|       5 | Roupa Nova           |   80000 |
+|       6 | Titãs               |    NULL |
++---------+----------------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT NoBanda FROM TbBanda ORDER BY NoBanda ASC;
++----------------------+
+| NoBanda              |
++----------------------+
+| Capital Inicial      |
+| Jota Quest           |
+| Paralamas do Sucesso |
+| Roupa Nova           |
+| Skank                |
+| Titãs               |
++----------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM TbIntegrante;
++--------------+-------------------+---------+
+| CoIntegrante | NoIntegrante      | CoBanda |
++--------------+-------------------+---------+
+|            1 | Rogério Flausino |       1 |
+|            2 | Marco Túlio Lara |       1 |
+|            3 | PJ                |       1 |
+|            4 | Paulinho Fonseca  |       1 |
+|            5 | Márcio Buzelin   |       1 |
+|            6 | Samuel Rosa       |       2 |
+|            7 | Henrique Portugal |       2 |
+|            8 | Lelo Zaneti       |       2 |
+|            9 | Haroldo Ferretti  |       2 |
+|           10 | Herbert Vianna    |       3 |
+|           11 | Bi Ribeiro        |       3 |
+|           12 | João Barone      |       3 |
+|           13 | Dinho Ouro Preto  |       4 |
+|           14 | Fê Lemos         |       4 |
+|           15 | Flávio Lemos     |       4 |
+|           16 | Yves Passarel     |       4 |
+|           17 | Paulinho          |       5 |
+|           18 | Serginho Herval   |       5 |
+|           19 | Nando             |       5 |
+|           20 | Kiko              |       5 |
+|           21 | Ricardo Feghali   |       5 |
+|           22 | Cleberson Horsth  |       5 |
++--------------+-------------------+---------+
+22 rows in set (0.00 sec)
+
+mysql> SELECT NoIntegrante FROM TbIntegrante ORDER BY NoIntegrante AS
+C;
++-------------------+
+| NoIntegrante      |
++-------------------+
+| Bi Ribeiro        |
+| Cleberson Horsth  |
+| Dinho Ouro Preto  |
+| Fê Lemos         |
+| Flávio Lemos     |
+| Haroldo Ferretti  |
+| Henrique Portugal |
+| Herbert Vianna    |
+| João Barone      |
+| Kiko              |
+| Lelo Zaneti       |
+| Márcio Buzelin   |
+| Marco Túlio Lara |
+| Nando             |
+| Paulinho          |
+| Paulinho Fonseca  |
+| PJ                |
+| Ricardo Feghali   |
+| Rogério Flausino |
+| Samuel Rosa       |
+| Serginho Herval   |
+| Yves Passarel     |
++-------------------+
+22 rows in set (0.00 sec)
+
+mysql> SELECT * FROM TbBanda WHERE VaCache >100000;
++---------+-----------------+---------+
+| CoBanda | NoBanda         | VaCache |
++---------+-----------------+---------+
+|       1 | Jota Quest      |  130000 |
+|       4 | Capital Inicial |  150000 |
++---------+-----------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM TbBanda WHERE VaCache <100000;
++---------+----------------------+---------+
+| CoBanda | NoBanda              | VaCache |
++---------+----------------------+---------+
+|       3 | Paralamas do Sucesso |   70000 |
+|       5 | Roupa Nova           |   80000 |
++---------+----------------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM TbBanda WHERE VaCache >=700000 AND VaCache <=120000;
+Empty set (0.00 sec)
+
+mysql> notee
