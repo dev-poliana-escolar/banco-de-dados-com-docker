@@ -1,0 +1,56 @@
+
+-- Cria tabela de agendamento
+
+mysql> CREATE TABLE agendamento(
+    -> id_agendamento INT PRIMARY KEY AUTO_INCREMENT,
+    -> data DATE);
+
+
+-- Cria a tabela de paciente 
+mysql> CREATE TABLE paciente(
+    -> id_paciente INT PRIMARY KEY AUTO_INCREMENT,
+    -> nome VARCHAR(100) NOT NULL,
+    -> fk_agendamento_id INT 
+    -> );
+
+
+-- Descrição da tabela de agendamento
+
+mysql> DESCRIBE agendamento;
++----------------+------+------+-----+---------+----------------+
+| Field          | Type | Null | Key | Default | Extra          |
++----------------+------+------+-----+---------+----------------+
+| id_agendamento | int  | NO   | PRI | NULL    | auto_increment |
+| data           | date | YES  |     | NULL    |                |
++----------------+------+------+-----+---------+----------------+
+
+-- Descrição da tabela de paciente
+
+mysql> DESCRIBE paciente;
++-------------------+--------------+------+-----+---------+----------------+
+| Field             | Type         | Null | Key | Default | Extra          |
++-------------------+--------------+------+-----+---------+----------------+
+| id_paciente       | int          | NO   | PRI | NULL    | auto_increment |
+| nome              | varchar(100) | NO   |     | NULL    |                |
+| fk_agendamento_id | int          | YES  |     | NULL    |                |
++-------------------+--------------+------+-----+---------+----------------+
+
+
+-- Informa que na tabela paciente eu tenho uma CONSTRAINT fk que, quando o paciente for excluido ou atualizado o agendamento ou será deletado ou será atualizado.
+
+mysql> ALTER TABLE paciente ADD CONSTRAINT fk_pac_agen_id FOREIGN KEY (fk_agendamento_id) REFERENCES agendamento(id_agendamento) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+-- Tabela de paciente apos o alter table
+
+mysql> DESCRIBE paciente;
++-------------------+--------------+------+-----+---------+----------------+
+| Field             | Type         | Null | Key | Default | Extra          |
++-------------------+--------------+------+-----+---------+----------------+
+| id_paciente       | int          | NO   | PRI | NULL    | auto_increment |
+| nome              | varchar(100) | NO   |     | NULL    |                |
+| fk_agendamento_id | int          | YES  | MUL | NULL    |                |
++-------------------+--------------+------+-----+---------+----------------+
+
+
+

@@ -1,8 +1,7 @@
 
+-- Adiciona campo para ser utilizado como fk em turma
 mysql> ALTER TABLE turma ADD fk_tur_disciplina INT;
 
-Query OK, 0 rows affected (0.07 sec)
-Records: 0  Duplicates: 0  Warnings: 0
 
 mysql> DESCRIBE turma;
 +-------------------+----------+------+-----+---------+----------------+
@@ -14,11 +13,11 @@ mysql> DESCRIBE turma;
 | fk_tur_aluno      | int      | YES  | MUL | NULL    |                |
 | fk_tur_disciplina | int      | YES  |     | NULL    |                |
 +-------------------+----------+------+-----+---------+----------------+
-5 rows in set (0.00 sec)
+
+-- Adiciona na tabela turma uma constraint que informa o campo escolhido como fk
 
 mysql> ALTER TABLE turma ADD CONSTRAINT fk_tur_disciplina FOREIGN KEY (fk_tur_disciplina) REFERENCES disciplina(id);
-Query OK, 0 rows affected (0.11 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+
 
 mysql> DESCRIBE turma;
 +-------------------+----------+------+-----+---------+----------------+
@@ -30,7 +29,9 @@ mysql> DESCRIBE turma;
 | fk_tur_aluno      | int      | YES  | MUL | NULL    |                |
 | fk_tur_disciplina | int      | YES  | MUL | NULL    |                |
 +-------------------+----------+------+-----+---------+----------------+
-5 rows in set (0.00 sec)
+
+
+-- Tabela de aluno
 
 mysql> DESCRIBE aluno;
 
@@ -42,13 +43,11 @@ mysql> DESCRIBE aluno;
 | data_nascimento | date         | NO   |     | NULL    |                |
 | matricula       | int          | NO   |     | NULL    |                |
 +-----------------+--------------+------+-----+---------+----------------+
-4 rows in set (0.00 sec)
 
-mysql> ALTER TABLE aluno MODIFY matricula UNIQUE;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNIQUE' at line 1
+-- Informa que na tabela aluno o campo matricula tem sua tipagem modificada
 mysql> ALTER TABLE aluno MODIFY matricula INT NOT NULL UNIQUE;
-Query OK, 0 rows affected (0.05 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+
+-- Agora a tabela aluno tem matricula como unica para cada estudante
 
 mysql> DESCRIBE aluno;
 +-----------------+--------------+------+-----+---------+----------------+
@@ -59,7 +58,8 @@ mysql> DESCRIBE aluno;
 | data_nascimento | date         | NO   |     | NULL    |                |
 | matricula       | int          | NO   | UNI | NULL    |                |
 +-----------------+--------------+------+-----+---------+----------------+
-4 rows in set (0.01 sec)
+
+-- TB turma com um char tamanho 20
 
 mysql> DESCRIBE turma;
 +-------------------+----------+------+-----+---------+----------------+
@@ -72,10 +72,11 @@ mysql> DESCRIBE turma;
 | fk_tur_disciplina | int      | YES  | MUL | NULL    |                |
 +-------------------+----------+------+-----+---------+----------------+
 5 rows in set (0.01 sec)
+
+-- A tabela turma só permitirá que o campo periodo tenha ou 1 ou 2
 
 mysql> ALTER TABLE turma ADD CONSTRAINT tur_periodo CHECK (periodo IN (1,2));
-Query OK, 0 rows affected (0.10 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+
 
 mysql> DESCRIBE turma;
 +-------------------+----------+------+-----+---------+----------------+
@@ -87,11 +88,9 @@ mysql> DESCRIBE turma;
 | fk_tur_aluno      | int      | YES  | MUL | NULL    |                |
 | fk_tur_disciplina | int      | YES  | MUL | NULL    |                |
 +-------------------+----------+------+-----+---------+----------------+
-5 rows in set (0.01 sec)
 
 mysql> ALTER TABLE turma MODIFY periodo CHAR(1);
-Query OK, 0 rows affected (0.09 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+
 
 mysql> DESCRIBE turma;
 +-------------------+----------+------+-----+---------+----------------+
@@ -103,6 +102,4 @@ mysql> DESCRIBE turma;
 | fk_tur_aluno      | int      | YES  | MUL | NULL    |                |
 | fk_tur_disciplina | int      | YES  | MUL | NULL    |                |
 +-------------------+----------+------+-----+---------+----------------+
-5 rows in set (0.00 sec)
 
-mysql> quit
