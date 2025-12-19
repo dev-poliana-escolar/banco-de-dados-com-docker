@@ -10,6 +10,8 @@ services:
       - "3306:3306"
     volumes:
       - meus-dados-mysql:/var/lib/mysql
+      - ./historicos:/historicos
+      - ./scripts:/scripts
 
 volumes:
   meus-dados-mysql:
