@@ -1,0 +1,74 @@
+-- Cria tabela de consulta
+
+mysql> CREATE TABLE consulta(
+    -> id_consulta INT PRIMARY KEY AUTO_INCREMENT,
+    -> data DATE NOT NULL,
+    -> fk_paciente INT NOT NULL);
+
+
+mysql> DESCRIBE paciente;
++-------------------+--------------+------+-----+---------+----------------+
+| Field             | Type         | Null | Key | Default | Extra          |
++-------------------+--------------+------+-----+---------+----------------+
+| id_paciente       | int          | NO   | PRI | NULL    | auto_increment |
+| nome              | varchar(100) | NO   |     | NULL    |                |
+| fk_agendamento_id | int          | YES  | MUL | NULL    |                |
++-------------------+--------------+------+-----+---------+----------------+
+
+
+-- Altera tabela de consulta, adicionando uma constraint(restricao) a fk de paciente que em caso de exclusão de paciente, a consulta sera deletada
+
+mysql> ALTER TABLE consulta ADD CONSTRAINT fk_con_pac_id FOREIGN KEY (fk_paciente) REFERENCES paciente(id_paciente) ON DELETE CASCADE ON UPDATE CASCADE;  
+
+
+mysql> DESCRIBE paciente;
++-------------------+--------------+------+-----+---------+----------------+
+| Field             | Type         | Null | Key | Default | Extra          |
++-------------------+--------------+------+-----+---------+----------------+
+| id_paciente       | int          | NO   | PRI | NULL    | auto_increment |
+| nome              | varchar(100) | NO   |     | NULL    |                |
+| fk_agendamento_id | int          | YES  | MUL | NULL    |                |
++-------------------+--------------+------+-----+---------+----------------+
+
+
+mysql> DESCRIBE consulta;
++-------------+------+------+-----+---------+----------------+
+| Field       | Type | Null | Key | Default | Extra          |
++-------------+------+------+-----+---------+----------------+
+| id_consulta | int  | NO   | PRI | NULL    | auto_increment |
+| data        | date | NO   |     | NULL    |                |
+| fk_paciente | int  | NO   | MUL | NULL    |                |
++-------------+------+------+-----+---------+----------------+
+
+-- Cria tabela prescricao
+
+mysql> CREATE TABLE prescricao(
+    -> id_prescricao INT PRIMARY KEY AUTO_INCREMENT,
+    -> descricao VARCHAR(100) NOT NULL);
+
+
+mysql> DESCRIBE prescricao;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| id_prescricao | int          | NO   | PRI | NULL    | auto_increment |
+| descricao     | varchar(100) | NO   |     | NULL    |                |
+| fk_consulta   | int          | NO   |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+
+-- Adiciona a restrição
+
+mysql> ALTER TABLE prescricao ADD CONSTRAINT fk_pre_con_id FOREIGN KEY (fk_consulta) REFERENCES consulta(id_consulta) ON DELETE CASCADE;
+
+
+mysql> DESCRIBE prescricao;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| id_prescricao | int          | NO   | PRI | NULL    | auto_increment |
+| descricao     | varchar(100) | NO   |     | NULL    |                |
+| fk_consulta   | int          | NO   | MUL | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> notee;
