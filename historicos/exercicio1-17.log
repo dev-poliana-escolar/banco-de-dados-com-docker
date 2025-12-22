@@ -1,0 +1,39 @@
+mysql> CREATE DATABASE academico;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE DATABASE academico;
+ERROR 1049 (42000): Unknown database 'DATABASE'
+mysql> USE academico;
+Database changed
+mysql> CREATE TABLE aluno(
+    -> nome VARCHAR(100) NOT NULL,
+    -> id_aluno INT NOT NULL PRIMARY KEY,
+    -> cpf VARCHAR(11) UNIQUE NOT NULL,
+    -> sexo CHAR(1) NOT NULL,
+    -> dat_nasc DATE NOT NULL);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE turma(
+    -> id_turma INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    -> nome VARCHAR(50) NOT NULL,
+    -> periodo INT NOT NULL);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE disciplina(
+    -> id_disc INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    -> descricao VARCHAR(200) NOT NUL,
+    -> ch INT NOT NULL);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NUL,
+ch INT NOT NULL)' at line 3
+mysql> CREATE TABLE disciplina(
+    -> id_disc INT NOT NULL,
+    -> 
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+mysql> CREATE TABLE disciplina(
+    -> id_disc INT PRIMARY KEY AUTO_INCREMENT,
+    -> descricao VARCHAR(200) NOT NULL,
+    -> ch INT NOT NULL);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> notee
